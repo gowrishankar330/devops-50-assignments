@@ -14,6 +14,20 @@ spec:
     spec:
       containers:
         - name: devopsapp
-          image: ghcr.io/gowrishankar330/devops-50-assignments/devopsapp:5ff96cb62ddaa6ebeef838db6b96d6d6ed7d6b63
+          image: ghcr.io/gowrishankar330/devops-50-assignments/devopsapp:8f13f1e82d4ea3289d666967db9c5481d8b399e8
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            failureThreshold: 2

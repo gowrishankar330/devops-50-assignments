@@ -16,9 +16,20 @@ def crash():
 def index():
     return jsonify(app="devops-50-assignments", endpoints=["/health", "/metrics", "/items"]), 200
 
+healthy = True  # module level, near `items = {}`
+
 @app.route("/health")
 def health():
+    if not healthy:
+        return jsonify(status="unhealthy"), 500
     return jsonify(status="ok"), 200
+
+@app.route("/break", methods=["POST"])
+def break_app():
+    global healthy
+    healthy = False
+    print("app is now lying — process alive, health failing", flush=True)
+    return jsonify(status="broken"), 200
 
 @app.route("/metrics")
 def metrics():
