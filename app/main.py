@@ -8,9 +8,9 @@ items = {}
 
 @app.route("/crash", methods=["POST"])
 def crash():
-    print("simulating crash — killing gunicorn master", flush=True)
-    os.kill(os.getppid(), signal.SIGKILL)  # getppid = parent pid = the master
-    return "dying", 500  # never actually sent
+    print("simulating crash — SIGQUIT to gunicorn master", flush=True)
+    os.kill(os.getppid(), signal.SIGQUIT)
+    return "dying", 500
 
 @app.route("/")
 def index():
