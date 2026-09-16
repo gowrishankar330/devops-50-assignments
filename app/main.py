@@ -1,16 +1,16 @@
 # app/main.py
 from flask import Flask, jsonify, request
 from prometheus_client import Counter, generate_latest
-import os
+import os, signal
 app = Flask(__name__)
 requests_total = Counter("app_requests_total", "Total requests")
 items = {}
 
 @app.route("/crash", methods=["POST"])
 def crash():
-    # log a scream, then kill the whole process ungracefully
-    print("simulating crash — exiting now", flush=True)
-    os._exit(1)
+    print("simulating crash — killing gunicorn master", flush=True)
+    os.kill(os.getppid(), signal.SIGKILL)  # getppid = parent pid = the master
+    return "dying", 500  # never actually sent
 
 @app.route("/")
 def index():
