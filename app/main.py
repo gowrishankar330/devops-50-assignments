@@ -1,10 +1,16 @@
 # app/main.py
 from flask import Flask, jsonify, request
 from prometheus_client import Counter, generate_latest
-
+import os
 app = Flask(__name__)
 requests_total = Counter("app_requests_total", "Total requests")
 items = {}
+
+@app.route("/crash", methods=["POST"])
+def crash():
+    # log a scream, then kill the whole process ungracefully
+    print("simulating crash — exiting now", flush=True)
+    os._exit(1)
 
 @app.route("/")
 def index():
