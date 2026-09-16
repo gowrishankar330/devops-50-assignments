@@ -29,4 +29,4 @@ USER appuser
 EXPOSE 8080
 
 # CMD = what runs when the container STARTS (not during build)
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--access-logfile", "main:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--access-logfile", "-", "main:app"]
