@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devopsapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: devopsapp
+  template:
+    metadata:
+      labels:
+        app: devopsapp
+    spec:
+      containers:
+        - name: devopsapp
+          image: ghcr.io/gowrishankar330/devops-50-assignments/devopsapp:5ff96cb62ddaa6ebeef838db6b96d6d6ed7d6b63
+          ports:
+            - containerPort: 8080
