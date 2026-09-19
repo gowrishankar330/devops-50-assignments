@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dataapp
+  namespace: team-payments
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dataapp
+  template:
+    metadata:
+      labels:
+        app: dataapp
+    spec:
+      containers:
+        - name: dataapp
+          image: ghcr.io/gowrishankar330/devops-50-assignments/dataapp:f9698dcf8913fa0fcd659e3f807b2613e9a66d58
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /data/health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /data/health
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            failureThreshold: 2
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi

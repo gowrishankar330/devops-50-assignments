@@ -3,7 +3,7 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
-@app.route("/health")
+@app.route("/data/health")
 def health():
     return jsonify(status="ok", service="dataapp"), 200
 
