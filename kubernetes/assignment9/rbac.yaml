@@ -1,0 +1,88 @@
+# Two team namespaces
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: team-payments
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: team-data
+---
+# An identity on the payments team
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dev-gowri
+  namespace: team-payments
+---
+# An identity on the payments team
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dev-sam
+  namespace: team-data
+---
+# An identity on the payments team
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dev-shankar
+  namespace: team-data
+---
+
+# Read-only role, scoped to team-payments
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: readonly
+  namespace: team-payments
+rules:
+  - apiGroups: ["", "apps"]
+    resources: ["pods", "pods/log", "deployments", "services"]
+    verbs: ["get", "list", "watch"]
+---
+
+# Read-only role, scoped to team-payments
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: readonly
+  namespace: team-data
+rules:
+  - apiGroups: ["", "apps"]
+    resources: ["pods", "pods/log", "deployments", "services"]
+    verbs: ["get", "list", "watch"]
+---
+# The binding: dev-gowri gets readonly, in team-payments only
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dev-gowri-readonly
+  namespace: team-payments
+subjects:
+  - kind: ServiceAccount
+    name: dev-gowri
+    namespace: team-payments
+roleRef:
+  kind: Role
+  name: readonly
+  apiGroup: rbac.authorization.k8s.io
+---
+# The binding: dev-gowri gets readonly, in team-payments only
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dev-sam-readonly
+  namespace: team-data
+subjects:
+  - kind: ServiceAccount
+    name: dev-sam
+    namespace: team-data
+  - kind: ServiceAccount
+    name: dev-shankar
+    namespace: team-data
+roleRef:
+  kind: Role
+  name: readonly
+  apiGroup: rbac.authorization.k8s.io
