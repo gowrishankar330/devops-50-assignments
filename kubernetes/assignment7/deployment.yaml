@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: devopsapp
-          image: ghcr.io/gowrishankar330/devops-50-assignments/devopsapp:8058a69685f1bedd9f82df526c85e2ff506ada77
+          image: ghcr.io/gowrishankar330/devops-50-assignments/devopsapp:9abdee8c1fd528a46235f099206e533a6d8a43c8
           ports:
             - containerPort: 8080
           livenessProbe:
@@ -31,3 +31,10 @@ spec:
             initialDelaySeconds: 3
             periodSeconds: 5
             failureThreshold: 2
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
