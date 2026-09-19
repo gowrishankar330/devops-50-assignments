@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dataapp
+  namespace: team-payments
+spec:
+  selector:
+    app: dataapp
+  ports:
+    - port: 80
+      targetPort: 8080
