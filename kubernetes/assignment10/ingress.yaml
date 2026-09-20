@@ -3,8 +3,14 @@ kind: Ingress
 metadata:
   name: devopsapp
   namespace: team-payments
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts: 
+       - devopsapp.local
+      secretName: devopsapp-tls
   rules:
     - host: devopsapp.local
       http:

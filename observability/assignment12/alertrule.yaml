@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: devopsapp-alerts
+  namespace: team-payments
+  labels:
+    release: kube-prometheus
+spec:
+  groups:
+    - name: devopsapp
+      rules:
+        - alert: HighCPU
+          expr: rate(container_cpu_usage_seconds_total{pod=~"devopsapp.*", namespace="team-payments"}[5m]) * 100 > 70
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High CPU on {{ $labels.pod }}"
+            description: "Pod {{ $labels.pod }} CPU above 70% for 2 minutes"

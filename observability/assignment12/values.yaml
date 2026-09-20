@@ -1,0 +1,35 @@
+prometheus:
+  prometheusSpec:
+    retention: 24h
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 100m
+      limits:
+        memory: 768Mi      # ← up from 512Mi
+        cpu: 300m
+
+grafana:
+  adminPassword: "devops123"
+  resources:
+    requests:
+      memory: 256Mi        # ← up from 128Mi
+      cpu: 100m            # ← up from 50m
+    limits:
+      memory: 512Mi        # ← up from 256Mi
+      cpu: 200m            # ← up from 100m
+
+alertmanager:
+  enabled: false
+
+nodeExporter:
+  enabled: true
+
+kubeStateMetrics:
+  resources:
+    requests:
+      memory: 32Mi
+      cpu: 10m
+    limits:
+      memory: 64Mi
+      cpu: 50m
