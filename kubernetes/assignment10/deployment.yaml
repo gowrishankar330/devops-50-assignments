@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: dataapp
-          image: ghcr.io/gowrishankar330/devops-50-assignments/dataapp:f9698dcf8913fa0fcd659e3f807b2613e9a66d58
+          image: ghcr.io/gowrishankar330/devops-50-assignments/dataapp:7dfbef92b560a6803e3edba032cee7433ce1a7a2
           ports:
             - containerPort: 8080
           livenessProbe:
