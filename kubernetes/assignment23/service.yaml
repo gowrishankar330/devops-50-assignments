@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: devopsapp
+  namespace: default
+  labels:
+    app: devopsapp
+spec:
+  selector:
+    app: devopsapp
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
