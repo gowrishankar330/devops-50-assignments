@@ -57,7 +57,7 @@ jobs:
             kubernetes/assignment23/deployment.yaml
           git config user.email "ci@github.com"
           git config user.name "GitHub Actions"
-          git add kubernetes/assignment-23/deployment.yaml
+          git add kubernetes/assignment23/deployment.yaml
           git commit -m "deploy: update devopsapp to ${{ github.sha }}"
           git push
 
