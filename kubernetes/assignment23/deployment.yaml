@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: devopsapp
-          image: ghcr.io/gowrishankar330/devops-50-assignments/devopsapp:7dfbef92b560a6803e3edba032cee7433ce1a7a2
+          image: ghcr.io/gowrishankar330/devops-50-assignments/devopsapp:6a765f1e82f1cd93f2bde9920797b6ad704d26fe
           ports:
             - containerPort: 8080
           livenessProbe:
