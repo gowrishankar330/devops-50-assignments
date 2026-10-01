@@ -20,9 +20,7 @@ healthy = True  # module level, near `items = {}`
 
 @app.route("/health")
 def health():
-    if not healthy:
-        return jsonify(status="unhealthy"), 500
-    return jsonify(status="ok"), 200
+    return jsonify(status="broken"), 500
 
 @app.route("/break", methods=["POST"])
 def break_app():
